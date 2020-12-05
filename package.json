@@ -20,6 +20,7 @@
     "typescript": "^3.9.7"
   },
   "dependencies": {
+    "express": "^4.17.1",
     "@types/bcrypt": "^3.0.0",
     "@types/bcrypt-nodejs": "0.0.31",
     "@types/cors": "^2.8.8",
