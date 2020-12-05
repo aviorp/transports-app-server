@@ -13,11 +13,12 @@ const router: Router = express.Router();
 router.get('/getVehicles', async (req: Request, res: Response, next: NextFunction) => {
     const io = req.app.get("socketio");
     const authInfo: AuthInfo = req.app.get("authInfo");
-    
-    if (authInfo.isAdmin) {
-        io.emit("confirm", "רוצה לאשר ??");
-    }
     try {
+        console.log(authInfo);
+        if (authInfo.isAdmin) {
+            
+            io.emit("confirm", "רוצה לאשר ??");
+        }
         let vehicles = await getVehicles();
         return res.status(200).send(vehicles);
     } catch (error) {

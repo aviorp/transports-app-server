@@ -12,7 +12,7 @@ import mongoose from 'mongoose';
  */
 export const connectToMongo = async () => {
     try {
-        await mongoose.connect('mongodb://localhost/testdb', { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
+        await mongoose.connect('mongodb://localhost/trasports-db', { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
         console.log("Connected to DB");
     } catch(err) {
         console.error(err)

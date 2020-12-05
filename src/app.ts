@@ -7,6 +7,7 @@ import vehicleRoutes from './routes/vehicleRoutes';
 import transportRoutes from './routes/transportRoutes';
 import cors from 'cors';
 import morgan from 'morgan';
+import multer from 'multer';
 
 const app = express();
 const port = process.env.port || 3000;
@@ -17,6 +18,15 @@ const io = require('socket.io')(server, {
         methods: ["GET", "POST"]
     }
 });
+const storage = multer.diskStorage({
+    destination: (req: Request, file, cb) => {
+        cb(null, './src/uploads')
+    },
+    filename: (req: Request, file, cb) => {
+        cb(null, file.fieldname)
+    }
+});
+const upload = multer({ storage }).any();
 
 connectToMongo();
 app.set('socketio', io);
@@ -33,13 +43,26 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
     })
 });
 
+app.post('/upload', (req: Request, res: Response, next: NextFunction) => {
+    upload(req, res, (err: any) => {
+        if (err) {
+            next(err)
+        }
+        res.end("File is Uploaded")
+    })
+})
+app.get('/download', (req: Request, res: Response, next: NextFunction) => {
+    const path = __dirname + "/src/uploads/מכתב התראה לפני תביעה.docx-1607129151233";
+    res.sendFile(path);
+})
+
 io.on('connection', (socket: any) => {
     console.log("a user connected ");
     // * sign user id as global auth info
     socket.on("sign-user", (authInfo: AuthInfo) => {
         app.set("authInfo", authInfo);
     })
-    
+
 });
 
 

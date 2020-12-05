@@ -1,4 +1,4 @@
-import { Transport } from './../../interfaces/transport.interface';
+import { Transport } from '../../interfaces/transport.interface';
 import mongoose, { Schema } from 'mongoose';
 
 const TransportSchema: Schema<Transport> = new Schema({
@@ -63,6 +63,6 @@ const TransportSchema: Schema<Transport> = new Schema({
 
 })
 
-const Transport = mongoose.model('transports', TransportSchema);
+const Transports = mongoose.model('transports', TransportSchema);
 
-module.exports = Transport;
+module.exports = Transports;
