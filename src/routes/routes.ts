@@ -14,8 +14,8 @@ const router = express.Router();
  */
  router.get('/', verifyUser, async (req: Request, res: Response, next: NextFunction) => {
     try {
-        let users = await getAllUsers();
-        res.status(200).send(users);
+        // let users = await getAllUsers();
+        res.status(200).send("Works !");
     }
     catch (error) {
         next(error)
